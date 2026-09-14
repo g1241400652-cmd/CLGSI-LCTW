@@ -1,0 +1,6 @@
+# Install PyTorch separately for your CUDA/CPU environment (see README).
+transformers==4.36.2
+numpy==1.24.4
+scikit-learn==1.3.2
+pandas==2.0.3
+tqdm==4.66.5
