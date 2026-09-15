@@ -1,0 +1,155 @@
+{
+  "source": "Reported aggregate values transcribed from manuscript Tables 6 and 7; not individual-run observations.",
+  "test_metric_units": "Acc-2, F1 and Acc-7 are percentages; MAE and Corr are not percentage-scaled.",
+  "component_delta_definition": "Control minus full LCTW on validation data, in percentage points. Standard deviations are across paired run differences.",
+  "test_means": [
+    {
+      "dataset": "MOSI",
+      "method": "CLGSI",
+      "n_runs": 3,
+      "mean": {
+        "Has0_acc_2": 82.85,
+        "Non0_acc_2": 84.71,
+        "Has0_F1": 82.74,
+        "Non0_F1": 84.66,
+        "Acc_7": 46.4,
+        "MAE": 0.718,
+        "Corr": 0.795
+      }
+    },
+    {
+      "dataset": "MOSI",
+      "method": "LCTW",
+      "n_runs": 3,
+      "mean": {
+        "Has0_acc_2": 82.99,
+        "Non0_acc_2": 84.65,
+        "Has0_F1": 82.86,
+        "Non0_F1": 84.73,
+        "Acc_7": 45.44,
+        "MAE": 0.725,
+        "Corr": 0.797
+      }
+    },
+    {
+      "dataset": "MOSEI",
+      "method": "CLGSI",
+      "n_runs": 3,
+      "mean": {
+        "Has0_acc_2": 81.42,
+        "Non0_acc_2": 85.02,
+        "Has0_F1": 81.89,
+        "Non0_F1": 84.98,
+        "Acc_7": 53.77,
+        "MAE": 0.537,
+        "Corr": 0.766
+      }
+    },
+    {
+      "dataset": "MOSEI",
+      "method": "LCTW",
+      "n_runs": 3,
+      "mean": {
+        "Has0_acc_2": 82.5,
+        "Non0_acc_2": 85.19,
+        "Has0_F1": 82.82,
+        "Non0_F1": 85.09,
+        "Acc_7": 53.19,
+        "MAE": 0.536,
+        "Corr": 0.769
+      }
+    }
+  ],
+  "component_controls": [
+    {
+      "dataset": "MOSI",
+      "control": "No localization (w=1)",
+      "n_runs": 3,
+      "Has0_acc_2_delta_pp": {
+        "mean": -2.47,
+        "sample_sd": 1.76
+      },
+      "acc_control_wins": 0,
+      "Has0_F1_delta_pp": {
+        "mean": -2.43,
+        "sample_sd": 1.71
+      },
+      "f1_control_wins": 0
+    },
+    {
+      "dataset": "MOSI",
+      "control": "Reversed-direction negative control",
+      "n_runs": 3,
+      "Has0_acc_2_delta_pp": {
+        "mean": -3.35,
+        "sample_sd": 0.91
+      },
+      "acc_control_wins": 0,
+      "Has0_F1_delta_pp": {
+        "mean": -3.25,
+        "sample_sd": 0.91
+      },
+      "f1_control_wins": 0
+    },
+    {
+      "dataset": "MOSI",
+      "control": "ρ=1 stress control",
+      "n_runs": 3,
+      "Has0_acc_2_delta_pp": {
+        "mean": -3.2,
+        "sample_sd": 0.67
+      },
+      "acc_control_wins": 0,
+      "Has0_F1_delta_pp": {
+        "mean": -3.1,
+        "sample_sd": 0.61
+      },
+      "f1_control_wins": 0
+    },
+    {
+      "dataset": "MOSEI",
+      "control": "No localization (w=1)",
+      "n_runs": 3,
+      "Has0_acc_2_delta_pp": {
+        "mean": -1.78,
+        "sample_sd": 2.72
+      },
+      "acc_control_wins": 1,
+      "Has0_F1_delta_pp": {
+        "mean": -1.46,
+        "sample_sd": 2.29
+      },
+      "f1_control_wins": 1
+    },
+    {
+      "dataset": "MOSEI",
+      "control": "Reversed-direction negative control",
+      "n_runs": 3,
+      "Has0_acc_2_delta_pp": {
+        "mean": -1.09,
+        "sample_sd": 2.25
+      },
+      "acc_control_wins": 2,
+      "Has0_F1_delta_pp": {
+        "mean": -0.87,
+        "sample_sd": 1.95
+      },
+      "f1_control_wins": 2
+    },
+    {
+      "dataset": "MOSEI",
+      "control": "ρ=1 stress control",
+      "n_runs": 3,
+      "Has0_acc_2_delta_pp": {
+        "mean": 0.27,
+        "sample_sd": 2.66
+      },
+      "acc_control_wins": 2,
+      "Has0_F1_delta_pp": {
+        "mean": 0.22,
+        "sample_sd": 2.17
+      },
+      "f1_control_wins": 2
+    }
+  ]
+}

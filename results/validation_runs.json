@@ -1,0 +1,198 @@
+{
+  "source": "Metrics recomputed from the selected validation predictions.",
+  "metric_units": "Acc-2, F1 and Acc-7 are fractions; MAE and Corr are not percentage-scaled.",
+  "runs": [
+    {
+      "dataset": "MOSI",
+      "method": "CLGSI",
+      "seed": 10111,
+      "selected_epoch": 20,
+      "validation_samples": 229,
+      "metrics": {
+        "Has0_acc_2": 0.8209606986899564,
+        "Has0_F1": 0.8224092536298591,
+        "Non0_acc_2": 0.8564814814814815,
+        "Non0_F1": 0.856754014737208,
+        "Acc_7": 0.45414847161572053,
+        "MAE": 0.6823516488075256,
+        "Corr": 0.8100680454402078
+      }
+    },
+    {
+      "dataset": "MOSI",
+      "method": "LCTW",
+      "seed": 10111,
+      "selected_epoch": 31,
+      "validation_samples": 229,
+      "metrics": {
+        "Has0_acc_2": 0.8558951965065502,
+        "Has0_F1": 0.8564620807279206,
+        "Non0_acc_2": 0.8842592592592593,
+        "Non0_F1": 0.8839917595833161,
+        "Acc_7": 0.4497816593886463,
+        "MAE": 0.7008221745491028,
+        "Corr": 0.8053960809961346
+      }
+    },
+    {
+      "dataset": "MOSI",
+      "method": "CLGSI",
+      "seed": 10112,
+      "selected_epoch": 12,
+      "validation_samples": 229,
+      "metrics": {
+        "Has0_acc_2": 0.8384279475982532,
+        "Has0_F1": 0.8397351801049947,
+        "Non0_acc_2": 0.8703703703703703,
+        "Non0_F1": 0.8706868710356678,
+        "Acc_7": 0.4759825327510917,
+        "MAE": 0.7045255899429321,
+        "Corr": 0.8020337169479467
+      }
+    },
+    {
+      "dataset": "MOSI",
+      "method": "LCTW",
+      "seed": 10112,
+      "selected_epoch": 17,
+      "validation_samples": 229,
+      "metrics": {
+        "Has0_acc_2": 0.8646288209606987,
+        "Has0_F1": 0.8649653990643542,
+        "Non0_acc_2": 0.8842592592592593,
+        "Non0_F1": 0.8839917595833161,
+        "Acc_7": 0.4148471615720524,
+        "MAE": 0.6948863863945007,
+        "Corr": 0.807088109393486
+      }
+    },
+    {
+      "dataset": "MOSI",
+      "method": "CLGSI",
+      "seed": 10113,
+      "selected_epoch": 19,
+      "validation_samples": 229,
+      "metrics": {
+        "Has0_acc_2": 0.8253275109170306,
+        "Has0_F1": 0.8263398671350866,
+        "Non0_acc_2": 0.8518518518518519,
+        "Non0_F1": 0.8518518518518519,
+        "Acc_7": 0.42358078602620086,
+        "MAE": 0.6878745555877686,
+        "Corr": 0.8074629256323275
+      }
+    },
+    {
+      "dataset": "MOSI",
+      "method": "LCTW",
+      "seed": 10113,
+      "selected_epoch": 12,
+      "validation_samples": 229,
+      "metrics": {
+        "Has0_acc_2": 0.851528384279476,
+        "Has0_F1": 0.851528384279476,
+        "Non0_acc_2": 0.875,
+        "Non0_F1": 0.8742439348620805,
+        "Acc_7": 0.4410480349344978,
+        "MAE": 0.7042084336280823,
+        "Corr": 0.8080877634740627
+      }
+    },
+    {
+      "dataset": "MOSEI",
+      "method": "CLGSI",
+      "seed": 10111,
+      "selected_epoch": 9,
+      "validation_samples": 1871,
+      "metrics": {
+        "Has0_acc_2": 0.8172100481026189,
+        "Has0_F1": 0.8238778218772068,
+        "Non0_acc_2": 0.8609179415855355,
+        "Non0_F1": 0.8613405880809438,
+        "Acc_7": 0.5408872260823089,
+        "MAE": 0.5074475407600403,
+        "Corr": 0.7605952989984277
+      }
+    },
+    {
+      "dataset": "MOSEI",
+      "method": "LCTW",
+      "seed": 10111,
+      "selected_epoch": 9,
+      "validation_samples": 1871,
+      "metrics": {
+        "Has0_acc_2": 0.8156066274719401,
+        "Has0_F1": 0.8218601901456964,
+        "Non0_acc_2": 0.8595271210013908,
+        "Non0_F1": 0.859463319156802,
+        "Acc_7": 0.5440940673436665,
+        "MAE": 0.5146480202674866,
+        "Corr": 0.7513893966475342
+      }
+    },
+    {
+      "dataset": "MOSEI",
+      "method": "CLGSI",
+      "seed": 10112,
+      "selected_epoch": 3,
+      "validation_samples": 1871,
+      "metrics": {
+        "Has0_acc_2": 0.823623730625334,
+        "Has0_F1": 0.8277414021980174,
+        "Non0_acc_2": 0.8581363004172462,
+        "Non0_F1": 0.8567860839850441,
+        "Acc_7": 0.549973276322822,
+        "MAE": 0.5127949118614197,
+        "Corr": 0.7494221562823923
+      }
+    },
+    {
+      "dataset": "MOSEI",
+      "method": "LCTW",
+      "seed": 10112,
+      "selected_epoch": 5,
+      "validation_samples": 1871,
+      "metrics": {
+        "Has0_acc_2": 0.8246926777124532,
+        "Has0_F1": 0.8278876286817036,
+        "Non0_acc_2": 0.8477051460361613,
+        "Non0_F1": 0.8460430655257131,
+        "Acc_7": 0.5483698556921432,
+        "MAE": 0.5227056741714478,
+        "Corr": 0.7474022380952418
+      }
+    },
+    {
+      "dataset": "MOSEI",
+      "method": "CLGSI",
+      "seed": 10113,
+      "selected_epoch": 9,
+      "validation_samples": 1871,
+      "metrics": {
+        "Has0_acc_2": 0.8166755745590594,
+        "Has0_F1": 0.82214232862862,
+        "Non0_acc_2": 0.8532684283727399,
+        "Non0_F1": 0.8528218458929362,
+        "Acc_7": 0.5227151256012827,
+        "MAE": 0.5218307971954346,
+        "Corr": 0.745159926688969
+      }
+    },
+    {
+      "dataset": "MOSEI",
+      "method": "LCTW",
+      "seed": 10113,
+      "selected_epoch": 10,
+      "validation_samples": 1871,
+      "metrics": {
+        "Has0_acc_2": 0.8332442544094067,
+        "Has0_F1": 0.8361199354280502,
+        "Non0_acc_2": 0.8484005563282336,
+        "Non0_F1": 0.847204783570089,
+        "Acc_7": 0.5291288081239979,
+        "MAE": 0.5151790380477905,
+        "Corr": 0.7552618485834667
+      }
+    }
+  ]
+}

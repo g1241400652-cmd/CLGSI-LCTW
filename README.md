@@ -2,7 +2,7 @@
 
 Source code for **Low-confidence task-aligned reweighting improves zero-boundary decisions in CLGSI-based multimodal sentiment analysis**.
 
-LCTW adds a bounded, MAE-aligned gradient at the fused sentiment prediction near the zero boundary. It leaves the forward loss value and inference architecture unchanged. This repository contains the model, LCTW implementation, dataset loader, training and evaluation code. Datasets, pretrained models, experiment logs and manuscript files are not distributed here.
+LCTW adds a bounded, MAE-aligned gradient at the fused sentiment prediction near the zero boundary. It leaves the forward loss value and inference architecture unchanged. This repository contains the model, LCTW implementation, dataset loader, training and evaluation code, and compact numerical results. Datasets, pretrained models, experiment logs and manuscript files are not distributed here.
 
 ## Environment
 
@@ -36,6 +36,8 @@ python train.py --dataset mosei --data datasets/mosei.pkl --bert checkpoints/ber
 
 The defaults use seeds `10111 10112 10113`, at most 40 epochs, and early stopping after eight epochs without improvement. Checkpoint selection minimizes validation MAE rounded to four decimal places and retains the earliest checkpoint on ties. Test metrics are evaluated after selection. The training batch sizes are 64 for MOSI and 128 for MOSEI. LCTW uses `tau=0.25` and `rho=0.10`; the contrastive-loss coefficients are 0.95 and 0.48 respectively. Other hyperparameters are in `config/config_regression.py`.
 
+On MOSI, the final four training samples are merged into the preceding batch: 1,284 samples form 19 batches of 64 and one batch of 68. Loss normalization uses the actual batch size. Both methods use the same seeded sample order and batch partition. The cosine schedule spans 40 nominal epochs: 800 updates with 80 warm-up updates on MOSI, and 5,120 updates with 512 warm-up updates on MOSEI. Early stopping can end training before the schedule is exhausted.
+
 Each run saves its configuration, selected checkpoint and validation/test metrics under `outputs/<dataset>/<method>/<seed>/`. A separate file reports the arithmetic mean of test metrics across the requested seeds. Existing run directories are not overwritten; use a new `--output` directory to repeat a run.
 
 Acc-2, weighted F1 and Acc-7 are stored as fractions; multiply by 100 to express percentages. Has0 includes zero targets and uses `>= 0` for positive predictions and labels. Non0 excludes zero targets and uses `> 0`. MAE and correlation are reported without percentage scaling. Acc-7 clips predictions and targets to `[-3, 3]` and rounds them to integer classes.
@@ -50,6 +52,10 @@ Acc-2, weighted F1 and Acc-7 are stored as fractions; multiply by 100 to express
 - `metrics.py`: unrounded evaluation metrics.
 
 The training entry point consolidates the experimental training procedure into a standalone script. Randomness, hardware, libraries and input features can affect the resulting metrics; running the script does not guarantee identical rounded scores.
+
+## Numerical results
+
+The [`results/`](results/README.md) directory provides validation run metrics, training settings, analysis counts, and reported test/component summaries. Its README identifies the source, aggregation level and units of each file.
 
 ## Acknowledgments
 

@@ -65,6 +65,49 @@ def optimizer_for(model, config):
     return torch.optim.AdamW(groups)
 
 
+class TailMergeBatchSampler:
+    """Merge the final partial batch into the preceding full batch."""
+
+    def __init__(self, sampler, batch_size):
+        self.sampler = sampler
+        self.batch_size = batch_size
+        if batch_size <= 0 or len(sampler) < batch_size:
+            raise ValueError('Tail merge requires a positive batch size and one full batch')
+
+    def __iter__(self):
+        indices = list(iter(self.sampler))
+        full, tail = divmod(len(indices), self.batch_size)
+        end = (full - 1) * self.batch_size if tail else len(indices)
+        for start in range(0, end, self.batch_size):
+            yield indices[start:start + self.batch_size]
+        if tail:
+            yield indices[end:]
+
+    def __len__(self):
+        return len(self.sampler) // self.batch_size
+
+
+def make_loaders(datasets, dataset, batch_size, seed):
+    generator = torch.Generator(device='cpu').manual_seed(seed)
+    loaders = {split: DataLoader(ds, batch_size=batch_size, shuffle=False, num_workers=0)
+               for split, ds in datasets.items() if split != 'train'}
+    if dataset == 'mosi':
+        sampler = torch.utils.data.RandomSampler(datasets['train'], generator=generator)
+        batches = TailMergeBatchSampler(sampler, batch_size)
+        loaders['train'] = DataLoader(datasets['train'], batch_sampler=batches,
+                                     num_workers=0, generator=generator)
+    else:
+        loaders['train'] = DataLoader(datasets['train'], batch_size=batch_size,
+                                     shuffle=True, num_workers=0, generator=generator)
+    return loaders
+
+
+def scheduler_for(optimizer, train_loader, schedule_epochs):
+    steps = len(train_loader) * schedule_epochs
+    return get_cosine_schedule_with_warmup(optimizer, num_warmup_steps=0.1 * steps,
+                                          num_training_steps=steps)
+
+
 def run_seed(args, datasets, seed):
     dest = args.output / args.dataset / args.method / str(seed)
     dest.mkdir(parents=True, exist_ok=False)
@@ -83,18 +126,12 @@ def run_seed(args, datasets, seed):
     model = AMIO(config).to(config.device)
     # Both methods start from the same seeded initialization and training RNG.
     seed_all(seed)
-    generator = torch.Generator(device='cpu').manual_seed(seed)
-    loaders = {split: DataLoader(ds, batch_size=config.batch_size, num_workers=0,
-                               shuffle=(split == 'train'),
-                               generator=generator if split == 'train' else None)
-               for split, ds in datasets.items()}
+    loaders = make_loaders(datasets, args.dataset, config.batch_size, seed)
     # Match the label initialization pass of the paired training procedure.
     for _ in DataLoader(train_data, batch_size=config.batch_size, shuffle=False, num_workers=0):
         pass
     optimizer = optimizer_for(model, config)
-    steps = len(loaders['train']) * 40
-    scheduler = get_cosine_schedule_with_warmup(optimizer, num_warmup_steps=0.1 * steps,
-                                              num_training_steps=steps)
+    scheduler = scheduler_for(optimizer, loaders['train'], config.warm_up_epochs)
     loss_class = (make_lctw_loss_class(contrastive_loss, torch, config.gamma)
                   if args.method == 'lctw' else contrastive_loss)
     best_mae, best_epoch = float('inf'), 0
