@@ -55,6 +55,27 @@ def main():
         gate = total['training_gate_positive'] / total['training_observations'] * 100
         print(dataset, f'paired accuracy gain {gain / total["validation_observations"] * 100:.2f} pp;', f'gate positive {gate:.2f}%')
 
+    controls = read('component_validation_runs.json')['runs']
+    assert len(controls) == 18
+    variants = ['ABL_NO_LOCALIZATION', 'ABL_REVERSED_DIRECTION_NEGATIVE_CONTROL',
+                'ABL_RHO1_STRESS_CONTROL']
+    summaries = read('reported_aggregates.json')['component_controls']
+    for i, reference in enumerate(summaries):
+        variant = variants[i % 3]
+        selected = [r for r in controls if r['dataset'] == reference['dataset'] and r['variant'] == variant]
+        assert sorted(r['seed'] for r in selected) == [10111, 10112, 10113]
+        for r in selected:
+            for metric, delta in r['control_minus_full_lctw'].items():
+                actual = r['metrics'][variant][metric] - r['metrics']['C10_LCTW_V2_1'][metric]
+                assert abs(actual - delta) < 1e-10
+        for metric, summary, wins in [('Has0_acc_2', 'Has0_acc_2_delta_pp', 'acc_control_wins'),
+                                      ('Has0_F1_score', 'Has0_F1_delta_pp', 'f1_control_wins')]:
+            values = [100 * r['control_minus_full_lctw'][metric] for r in selected]
+            assert round(mean(values), 2) == reference[summary]['mean']
+            assert round(stdev(values), 2) == reference[summary]['sample_sd']
+            assert sum(v > 0 for v in values) == reference[wins]
+    print('PASS: 18 component-control runs match Table 7 paired statistics.')
+
     protocol = read('training_protocol.json')
     for dataset, config in protocol['datasets'].items():
         assert sum(config['batch_sizes']) == config['train_samples']

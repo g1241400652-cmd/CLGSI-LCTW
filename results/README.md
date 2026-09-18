@@ -7,6 +7,7 @@ This directory contains compact numerical results for the manuscript. It does no
 | `validation_runs.json` | Seven validation metrics for each of 12 selected runs, recomputed from saved predictions | Table 3 |
 | `analysis_counts.json` | Per-run validation transitions, near-boundary counts, and training gate totals | Tables 4 and 8; boundary analysis |
 | `reported_aggregates.json` | Reported test means and component-control summaries | Tables 6 and 7 |
+| `component_validation_runs.json` | Seven metrics and paired differences for 18 validation control runs | Table 7 and continuation |
 | `training_protocol.json` | Seeds, batches, scheduler, selection rule and LCTW parameters | Section 4.2 |
 
 Validation metrics are stored as fractions for classification scores. Table 3 multiplies those scores by 100 and reports the arithmetic mean and sample standard deviation (`ddof=1`) across runs. Test classification means in `reported_aggregates.json` are already percentages, matching Table 6. The files state these units explicitly.
@@ -15,4 +16,7 @@ The component summaries are paired differences (control minus full LCTW), not di
 
 Has0 includes zero labels and uses `>= 0`; Non0 removes zero labels and uses `> 0`. Near-boundary analysis uses the CLGSI prediction with absolute value below 0.25. Validation counts pool run-sample observations. Training counts include repeated presentations across epochs, so they are not counts of unique samples.
 
-Run `python results/verify_results.py` from the repository root to check validation summaries and count consistency. This numerical check does not train a model or independently reproduce the reported test experiments.
+Run `python results/verify_results.py` from the repository root to check validation summaries, count consistency, and component-control statistics. This numerical check does not train a model or independently reproduce the reported test experiments.
+
+
+`component_validation_runs.json` contains the 18 component-control validation runs and paired differences used in Table 7, including its continuation.
